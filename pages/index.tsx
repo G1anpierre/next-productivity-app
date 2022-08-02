@@ -8,8 +8,6 @@ const Home: NextPage = () => {
   const {filteredTodos, setQuery, query} = useGetTodos()
   const [posts] = useGetPosts()
 
-  console.log('rendering Home')
-
   return (
     <>
       <header>
