@@ -1,7 +1,6 @@
 import type {NextPage} from 'next'
 import {useGetTodos} from '../hooks/useGetTodos'
 import {List} from '../components/List'
-import {useGetPosts} from '../hooks/useGetPosts'
 import {Search} from '../components/Search'
 import {Form} from '../components/Form'
 import {usePostsContext} from '../hooks/useGetPosts'
@@ -9,8 +8,6 @@ import {usePostsContext} from '../hooks/useGetPosts'
 const Home: NextPage = () => {
   const {filteredTodos, setQuery, query} = useGetTodos()
   const {posts} = usePostsContext()
-
-  console.log('posts', posts)
 
   return (
     <>
