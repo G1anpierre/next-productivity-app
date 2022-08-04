@@ -18,11 +18,19 @@ export const Search: FC<SearchProps> = ({onSearchQuery, query}) => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} value={searchText} />
-        <button>Search</button>
-      </form>
-    </div>
+    <>
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={handleChange} value={searchText} />
+          <button>Search</button>
+        </form>
+      </div>
+      <style jsx>{`
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+      `}</style>
+    </>
   )
 }

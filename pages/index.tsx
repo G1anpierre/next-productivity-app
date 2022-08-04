@@ -4,31 +4,53 @@ import {List} from '../components/List'
 import {Search} from '../components/Search'
 import {Form} from '../components/Form'
 import {usePostsContext} from '../hooks/useGetPosts'
+import {useQuery} from '@tanstack/react-query'
+import {getTodos} from '../api-calls/todos'
+import {AddTodoForm} from '../components/AddTodoForm'
 
 const Home: NextPage = () => {
-  const {filteredTodos, setQuery, query} = useGetTodos()
+  // const {filteredTodos, setQuery, query} = useGetTodos()
+  const query = useQuery(['todos'], getTodos)
   const {posts} = usePostsContext()
 
   return (
     <>
-      <header></header>
-      <div className="container">
-        <div className="left">
-          <h2>Todos</h2>
-          <Search onSearchQuery={setQuery} query={query} />
-          <List list={filteredTodos} listoption="todos" />
-        </div>
-        <div className="right">
-          <h2>Posts</h2>
-          <Form />
-          <List list={posts} listoption="posts" />
+      <div className="wrapper">
+        <div className="container">
+          <div className="todos">
+            <h2>Todos</h2>
+            {/* <Search onSearchQuery={setQuery} query={query} /> */}
+            <AddTodoForm />
+            {query.isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <List list={query.data.todos} listoption="todos" />
+            )}
+          </div>
+          <div className="reminders">
+            <h2>Reminders</h2>
+            <Form />
+            <List list={posts} listoption="posts" />
+          </div>
         </div>
       </div>
       <style jsx>
         {`
+          .wrapper {
+            padding: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+
           .container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+          }
+
+          @media screen and (min-width: 768px) {
+            .container {
+              grid-template-columns: repeat(2, 1fr);
+              grid-gap: 1rem;
+            }
           }
         `}
       </style>

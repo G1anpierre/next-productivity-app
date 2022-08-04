@@ -4,12 +4,12 @@ import nextConnect from 'next-connect'
 const posts = [
   {
     id: 1,
-    title: 'Post 1',
+    title: 'Reminder 1',
     body: 'Bacon ipsum dolor amet ground round pig sirloin corned beef andouille t-bone. Ham hock chislic ham biltong cow turkey capicola ground round. Frankfurter kielbasa pig andouille burgdoggen capicola. Porchetta pig shoulder ball tip.',
   },
   {
     id: 2,
-    title: 'Post 2',
+    title: 'Reminder 2',
     body: 'Venison drumstick tongue, doner pig jerky ribeye jowl pork loin chislic burgdoggen turducken pork belly. Sirloin bacon pork belly, short loin kevin tri-tip picanha ham chislic fatback meatball pancetta bresaola biltong ham hock.',
   },
 ]
