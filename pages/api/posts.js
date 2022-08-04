@@ -28,21 +28,24 @@ const handler = nextConnect({
   })
   .post((req, res) => {
     const {title, body} = req.body
-    posts.push({id: Date.now(), title, body})
-    res.json({posts})
+    const addedItem = {id: Date.now(), title, body}
+    posts.push(addedItem)
+    res.json({posts, addedItem})
   })
   .put((req, res) => {
     const {title, body} = req.body
     const {id} = req.query
     const index = posts.findIndex(post => post.id === Number(id))
-    posts.splice(index, 1, {id: Number(id), title, body})
-    res.json({posts})
+    const updatedItem = {id: Number(id), title, body}
+    posts.splice(index, 1, updatedItem)
+    res.json({posts, updatedItem})
   })
   .delete((req, res) => {
     const {id} = req.query
     const index = posts.findIndex(post => post.id === Number(id))
+    const deletedItem = posts.find(post => post.id === Number(id))
     posts.splice(index, 1)
-    res.json({posts})
+    res.json({posts, deletedItem})
   })
 
 export default handler

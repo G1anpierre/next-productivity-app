@@ -10,6 +10,8 @@ const Home: NextPage = () => {
   const {filteredTodos, setQuery, query} = useGetTodos()
   const {posts} = usePostsContext()
 
+  console.log('posts', posts)
+
   return (
     <>
       <header></header>

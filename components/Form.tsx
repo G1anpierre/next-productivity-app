@@ -1,6 +1,7 @@
 import React, {useRef} from 'react'
 import {useSetPostContext} from '../hooks/useGetPosts'
 import {generatePost} from '../api-calls/posts'
+import {toast} from 'react-toastify'
 
 export const Form = () => {
   const titleRef = useRef<HTMLInputElement>(null)
@@ -11,7 +12,12 @@ export const Form = () => {
     event.preventDefault()
     const title = titleRef.current!.value
     const body = bodyRef.current!.value
-    generatePost({title, body}).then(data => dispatch(data))
+    generatePost({title, body}).then(({posts, addedItem}) => {
+      dispatch({posts})
+      toast.success(`Post created:  ${addedItem.title}`)
+      titleRef.current!.value = ''
+      bodyRef.current!.value = ''
+    })
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, {FC} from 'react'
 import {useSetPostContext} from '../hooks/useGetPosts'
 import {generateDelete, generatePut} from '../api-calls/posts'
+import {toast} from 'react-toastify'
 
 export type ListType = {
   useId?: number
@@ -30,13 +31,18 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
   }
 
   const handleDelete = () => {
-    generateDelete(id).then(data => dispatch(data))
+    generateDelete(id).then(({posts, deletedItem}) => {
+      dispatch({posts})
+      toast.success(`Post deleted:  ${deletedItem.title}`)
+    })
   }
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    generatePut({title: titleValue, body: bodyValue, id}).then(data =>
-      dispatch(data),
+    generatePut({title: titleValue, body: bodyValue, id}).then(
+      ({posts, updatedItem}) => {
+        dispatch({posts}), toast.success(`Post updated:  ${updatedItem.title}`)
+      },
     )
     setIsEditable(!isEditable)
   }
@@ -72,7 +78,7 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
             <button onClick={handleDelete}>delete</button>
           </div>
         ) : isPostsList ? (
-          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleUpdate}>Submit</button>
         ) : null}
       </li>
       <style jsx>{`

@@ -1,4 +1,5 @@
 // API call to get posts
+
 const generatePost = async (value: {title: string; body: string}) => {
   const response = await fetch('/api/posts', {
     method: 'POST',
@@ -8,6 +9,7 @@ const generatePost = async (value: {title: string; body: string}) => {
     },
     body: JSON.stringify(value),
   })
+
   const data = await response.json()
   return data
 }
