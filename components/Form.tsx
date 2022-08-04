@@ -1,5 +1,6 @@
 import React, {useRef} from 'react'
-import {generatePost, useSetPostContext} from '../hooks/useGetPosts'
+import {useSetPostContext} from '../hooks/useGetPosts'
+import {generatePost} from '../api-calls/posts'
 
 export const Form = () => {
   const titleRef = useRef<HTMLInputElement>(null)

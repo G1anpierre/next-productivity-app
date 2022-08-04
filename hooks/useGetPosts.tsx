@@ -35,46 +35,6 @@ export const useGetPosts = () => {
   return {posts, setPosts}
 }
 
-// API call to get posts
-export const generatePost = async (value: {title: string; body: string}) => {
-  const response = await fetch('/api/posts', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(value),
-  })
-  const data = await response.json()
-  console.log('data generated :', data)
-  return data
-}
-
-export const generatePut = async (value: {
-  title: string
-  body: string
-  id: number
-}) => {
-  const response = await fetch(`/api/posts?id=${value.id}`, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(value),
-  })
-  const data = await response.json()
-  return data
-}
-
-export const generateDelete = async (id: number) => {
-  const response = await fetch(`/api/posts?id=${id}`, {
-    method: 'DELETE',
-  })
-  const data = await response.json()
-  return data
-}
-
 // Context to use
 export const usePostsContext = () => {
   const posts = useContext(PostsStoreContext)
@@ -97,7 +57,6 @@ type contextProps = {
 }
 
 export const Context: React.FC<contextProps> = ({children}) => {
-  // const [state, setState] = useState([]);
   const {posts, setPosts} = useGetPosts()
 
   return (

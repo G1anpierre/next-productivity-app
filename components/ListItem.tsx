@@ -1,9 +1,6 @@
 import React, {FC} from 'react'
-import {
-  generatePut,
-  generateDelete,
-  useSetPostContext,
-} from '../hooks/useGetPosts'
+import {useSetPostContext} from '../hooks/useGetPosts'
+import {generateDelete, generatePut} from '../api-calls/posts'
 
 export type ListType = {
   useId?: number
