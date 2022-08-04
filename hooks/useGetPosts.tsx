@@ -46,6 +46,7 @@ export const generatePost = async (value: {title: string; body: string}) => {
     body: JSON.stringify(value),
   })
   const data = await response.json()
+  console.log('data generated :', data)
   return data
 }
 
@@ -61,6 +62,14 @@ export const generatePut = async (value: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(value),
+  })
+  const data = await response.json()
+  return data
+}
+
+export const generateDelete = async (id: number) => {
+  const response = await fetch(`/api/posts?id=${id}`, {
+    method: 'DELETE',
   })
   const data = await response.json()
   return data

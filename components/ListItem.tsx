@@ -1,5 +1,9 @@
 import React, {FC} from 'react'
-import {generatePut, useSetPostContext} from '../hooks/useGetPosts'
+import {
+  generatePut,
+  generateDelete,
+  useSetPostContext,
+} from '../hooks/useGetPosts'
 
 export type ListType = {
   useId?: number
@@ -28,6 +32,10 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
     setIsEditable(!isEditable)
   }
 
+  const handleDelete = () => {
+    generateDelete(id).then(data => dispatch(data))
+  }
+
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     generatePut({title: titleValue, body: bodyValue, id}).then(data =>
@@ -37,6 +45,7 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
   }
 
   const hasEditableButton = !!body && !isEditable
+  const isPostsList = listoption === 'posts'
 
   return (
     <>
@@ -61,8 +70,11 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
           />
         )}
         {hasEditableButton ? (
-          <button onClick={handleOpenEdit}>edit</button>
-        ) : listoption === 'posts' ? (
+          <div className="editable-buttons">
+            <button onClick={handleOpenEdit}>edit</button>
+            <button onClick={handleDelete}>delete</button>
+          </div>
+        ) : isPostsList ? (
           <button onClick={handleSubmit}>Submit</button>
         ) : null}
       </li>
@@ -74,6 +86,12 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
         }
         .input {
           display: block;
+        }
+
+        .editable-buttons {
+          display: grid;
+          gap: 10px;
+          grid-auto-flow: column;
         }
 
         h3,

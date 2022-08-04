@@ -28,7 +28,7 @@ const handler = nextConnect({
   })
   .post((req, res) => {
     const {title, body} = req.body
-    posts.push({title, body, id: Math.floor(Math.random() * 100)})
+    posts.push({id: Date.now(), title, body})
     res.json({posts})
   })
   .put((req, res) => {
@@ -36,6 +36,12 @@ const handler = nextConnect({
     const {id} = req.query
     const index = posts.findIndex(post => post.id === Number(id))
     posts.splice(index, 1, {id: Number(id), title, body})
+    res.json({posts})
+  })
+  .delete((req, res) => {
+    const {id} = req.query
+    const index = posts.findIndex(post => post.id === Number(id))
+    posts.splice(index, 1)
     res.json({posts})
   })
 
