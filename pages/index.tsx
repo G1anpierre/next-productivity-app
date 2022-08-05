@@ -9,7 +9,6 @@ import {getTodos} from '../api-calls/todos'
 import {AddTodoForm} from '../components/AddTodoForm'
 
 const Home: NextPage = () => {
-  // const {filteredTodos, setQuery, query} = useGetTodos()
   const postQuery = useQuery(['todos'], getTodos)
   const {posts} = usePostsContext()
 
@@ -34,8 +33,18 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <style jsx>
+      <style jsx global>
         {`
+          html,
+          body {
+            padding: 0;
+            margin: 0;
+            font-family: Roboto, Arial, Helvetica, sans-serif;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
           .wrapper {
             padding: 16px;
             max-width: 1200px;
@@ -44,12 +53,13 @@ const Home: NextPage = () => {
 
           .container {
             display: grid;
+            grid-gap: 4rem;
           }
 
           @media screen and (min-width: 768px) {
             .container {
               grid-template-columns: repeat(2, 1fr);
-              grid-gap: 1rem;
+              grid-gap: 2rem;
             }
           }
         `}
