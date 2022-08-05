@@ -1,29 +1,53 @@
-import React from 'react'
-import {useMutation, useQueryClient, QueryCache} from '@tanstack/react-query'
+import React, {useRef} from 'react'
+import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {addTodoMutation} from '../api-calls/todos'
 
 export const AddTodoForm = () => {
   const queryClient = useQueryClient()
-  const {mutateAsync, status, data} = useMutation(addTodoMutation, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['todos'])
+  const inputRef = useRef<HTMLInputElement>(null)
+  const {mutate, status, isIdle, isLoading, isSuccess, reset} = useMutation(
+    addTodoMutation,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['todos'])
+      },
     },
-  })
+  )
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    mutateAsync({
-      title: 'New Todo',
-      completed: false,
-    })
+    mutate(
+      {
+        title: inputRef.current!.value,
+        completed: false,
+      },
+      {
+        onSuccess: () => {
+          inputRef.current!.value = ''
+        },
+      },
+    )
   }
 
   return (
     <>
       <div className="container">
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Add a todo" />
-          <button>Add</button>
+          <input
+            type="text"
+            placeholder="Add a todo"
+            ref={inputRef}
+            onFocus={reset}
+          />
+          <button>
+            {isIdle
+              ? 'Add'
+              : isLoading
+              ? 'loading'
+              : isSuccess
+              ? 'Succesfully Added!'
+              : ''}
+          </button>
         </form>
       </div>
       <style jsx>{`

@@ -10,7 +10,7 @@ import {AddTodoForm} from '../components/AddTodoForm'
 
 const Home: NextPage = () => {
   // const {filteredTodos, setQuery, query} = useGetTodos()
-  const query = useQuery(['todos'], getTodos)
+  const postQuery = useQuery(['todos'], getTodos)
   const {posts} = usePostsContext()
 
   return (
@@ -18,13 +18,13 @@ const Home: NextPage = () => {
       <div className="wrapper">
         <div className="container">
           <div className="todos">
-            <h2>Todos</h2>
+            <h2>Todos {postQuery.isFetching ? <small>...</small> : null}</h2>
             {/* <Search onSearchQuery={setQuery} query={query} /> */}
             <AddTodoForm />
-            {query.isLoading ? (
+            {postQuery.isLoading ? (
               <div>Loading...</div>
             ) : (
-              <List list={query.data.todos} listoption="todos" />
+              <List list={postQuery.data.todos} listoption="todos" />
             )}
           </div>
           <div className="reminders">

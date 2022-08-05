@@ -44,5 +44,24 @@ const handler = nextConnect({
     todos.push(addedItem)
     res.json({todos, addedItem})
   })
+  .put((req, res) => {
+    const {title, completed} = req.body
+    const {id} = req.query
+    const index = todos.findIndex(todo => todo.id === Number(id))
+    const updatedItem = {
+      ...todos[index],
+      title,
+      completed,
+    }
+    todos.splice(index, 1, updatedItem)
+    res.json({todos, updatedItem})
+  })
+  .delete((req, res) => {
+    const {id} = req.query
+    const index = todos.findIndex(todo => todo.id === Number(id))
+    const deletedItem = todos.find(todo => todo.id === Number(id))
+    todos.splice(index, 1)
+    res.json({todos, deletedItem})
+  })
 
 export default handler
