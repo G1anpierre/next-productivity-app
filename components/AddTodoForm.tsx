@@ -5,7 +5,7 @@ import {addTodoMutation} from '../api-calls/todos'
 export const AddTodoForm = () => {
   const queryClient = useQueryClient()
   const inputRef = useRef<HTMLInputElement>(null)
-  const {mutate, status, isIdle, isLoading, isSuccess, reset} = useMutation(
+  const {mutate, isIdle, isLoading, isSuccess, reset} = useMutation(
     addTodoMutation,
     {
       onSuccess: () => {

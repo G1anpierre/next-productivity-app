@@ -12,7 +12,7 @@ export type ListType = {
   listoption?: string
 }
 
-export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
+export const ListItem: FC<ListType> = ({title, body, id = 1}) => {
   const [isEditable, setIsEditable] = React.useState(false)
   const [titleValue, setTitleValue] = React.useState(title || '')
   const [bodyValue, setBodyValue] = React.useState(body || '')
@@ -48,7 +48,6 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
   }
 
   const hasEditableButton = !!body && !isEditable
-  const isPostsList = listoption === 'posts'
 
   return (
     <>
@@ -77,9 +76,9 @@ export const ListItem: FC<ListType> = ({title, body, id = 1, listoption}) => {
             <button onClick={handleOpenEdit}>edit</button>
             <button onClick={handleDelete}>delete</button>
           </div>
-        ) : isPostsList ? (
+        ) : (
           <button onClick={handleUpdate}>Submit</button>
-        ) : null}
+        )}
       </li>
       <style jsx>{`
         .list-item {

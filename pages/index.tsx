@@ -1,7 +1,5 @@
 import type {NextPage} from 'next'
-import {useGetTodos} from '../hooks/useGetTodos'
 import {List} from '../components/List'
-import {Search} from '../components/Search'
 import {Form} from '../components/Form'
 import {usePostsContext} from '../hooks/useGetPosts'
 import {useQuery} from '@tanstack/react-query'
@@ -18,7 +16,6 @@ const Home: NextPage = () => {
         <div className="container">
           <div className="todos">
             <h2>Todos {postQuery.isFetching ? <small>...</small> : null}</h2>
-            {/* <Search onSearchQuery={setQuery} query={query} /> */}
             <AddTodoForm />
             {postQuery.isLoading ? (
               <div>Loading...</div>

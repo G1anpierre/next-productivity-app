@@ -27,7 +27,7 @@ export const Form = () => {
           <span className="title">Title:</span>
           <input
             type="text"
-            placeholder="Title post"
+            placeholder="Title reminder"
             className="title-input"
             ref={titleRef}
           />
@@ -37,12 +37,12 @@ export const Form = () => {
           <textarea
             rows={4}
             cols={50}
-            placeholder="Message post"
+            placeholder="Message reminder"
             className="message-input"
             ref={bodyRef}
           />
         </label>
-        <button type="submit">Add Post</button>
+        <button type="submit">Add Reminder</button>
       </form>
       <style jsx>{`
         .form {
@@ -63,7 +63,4 @@ export const Form = () => {
       `}</style>
     </div>
   )
-}
-function PostsDispatchContext(PostsDispatchContext: any) {
-  throw new Error('Function not implemented.')
 }

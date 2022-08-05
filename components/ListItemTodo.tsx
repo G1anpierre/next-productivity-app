@@ -11,14 +11,11 @@ export const ListItemTodo: FC<ListType> = ({title, id = 1, completed}) => {
   const [isEditing, setIsEditing] = useState(false)
   const [completeTodo, setCompleteTodo] = useState(completed)
   const queryClient = useQueryClient()
-  const {mutate, status, isIdle, isLoading, isSuccess, reset} = useMutation(
-    updateTodoCompleteMutation,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['todos'])
-      },
+  const {mutate: mutateCompleteTodo} = useMutation(updateTodoCompleteMutation, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['todos'])
     },
-  )
+  })
   const {mutate: mutateDeleteTodo} = useMutation(deleteTodoMutation, {
     onSuccess: () => {
       queryClient.invalidateQueries(['todos'])
@@ -34,7 +31,7 @@ export const ListItemTodo: FC<ListType> = ({title, id = 1, completed}) => {
   }
 
   const handleComplete = () => {
-    mutate(
+    mutateCompleteTodo(
       {
         id,
         completed: !completeTodo,
@@ -49,7 +46,7 @@ export const ListItemTodo: FC<ListType> = ({title, id = 1, completed}) => {
   }
 
   const handleSave = () => {
-    mutate(
+    mutateCompleteTodo(
       {
         id,
         completed: completeTodo,

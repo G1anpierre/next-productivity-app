@@ -15,7 +15,7 @@ export const List: FC<ListProps> = ({list, listoption}) => {
         <>
           <ul className="list">
             {list.map(item => (
-              <ListItem {...item} listoption={listoption} key={item.id} />
+              <ListItem {...item} key={item.id} />
             ))}
           </ul>
           <style jsx>{`
@@ -31,7 +31,7 @@ export const List: FC<ListProps> = ({list, listoption}) => {
         <>
           <ul className="list">
             {list.map(item => (
-              <ListItemTodo {...item} listoption={listoption} key={item.id} />
+              <ListItemTodo {...item} key={item.id} />
             ))}
           </ul>
           <style jsx>{`
